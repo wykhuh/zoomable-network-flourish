@@ -1,6 +1,6 @@
 {
   "name": "untitled_flourish_template",
-  "version": "0.0.2-prerelease.2",
+  "version": "0.0.2-prerelease.3",
   "description": "A template for use on flourish.studio",
   "main": "template.js",
   "author": "Unknown author",
@@ -9,6 +9,9 @@
     "flourish"
   ],
   "scripts": {
+    "dev": "flourish run",
+    "prepublish": "flourish publish --prerelease",
+    "publish": "flourish publish",
     "build": "rollup -c",
     "less": "lessc --plugin=less-plugin-clean-css --source-map less/style.less static/style.css"
   },
@@ -18,5 +21,10 @@
     "rollup": "^0.67.4",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-uglify": "^6.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "rollup-plugin-babel": "^4.3.2"
   }
 }
