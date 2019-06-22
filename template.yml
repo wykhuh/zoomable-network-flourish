@@ -17,6 +17,17 @@ build:
     directory: less
 
 settings:
+  - Highlight layout
+  - property: highlight_layout
+    name: Chart layout for connected items
+    type: string
+    style: buttons
+    width: full
+    choices:
+      - - Random
+        - random
+      - - Circular
+        - concentric
 
 data:
   - Links

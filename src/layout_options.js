@@ -1,6 +1,8 @@
 const LAYOUT_PADDING = 50;
+const ANIMATION_DURATION = 500;
+const EASING = "linear";
 
-const fcose_options = {
+const fcoseOptions = {
   name: "fcose",
   quality: "default",
   nodeDimensionsIncludeLabels: false,
@@ -34,7 +36,7 @@ const fcose_options = {
   initialEnergyOnIncremental: 0.3
 };
 
-const cose_options = {
+const coseOptions = {
   name: "cose",
   idealEdgeLength: 80,
   nodeOverlap: 20,
@@ -54,4 +56,17 @@ const cose_options = {
   nodeDimensionsIncludeLabels: false
 };
 
-export { cose_options, fcose_options };
+const concentricOptions = {
+  name: "concentric",
+  fit: true,
+  animate: true,
+  ANIMATION_DURATION: ANIMATION_DURATION,
+  animationEasing: EASING,
+  nodeDimensionsIncludeLabels: true,
+  avoidOverlap: true,
+  padding: LAYOUT_PADDING,
+  levelWidth: () => 1,
+  concentric: () => 1
+};
+
+export { coseOptions, fcoseOptions, concentricOptions };
