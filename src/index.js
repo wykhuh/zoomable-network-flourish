@@ -5,19 +5,41 @@ import { fcoseOptions, coseOptions } from "./layout_options";
 import { stopSpinner } from "./components/spinner";
 import { formatEdges, formatNodes, addOriginalPosition } from "./format_data";
 import {
-  resetHighlights,
-  highlightElements,
-  switchConcentricLayout
+  switchConcentricLayout,
+  resetOriginalPositions,
+  highlightAndConcentricLayout,
+  fitNodes
 } from "./highlight_neighbors";
-import {
-  populateDropdown,
-  addDropdownListeners
-} from "./components/dropdown_menu";
+import { populateDropdown } from "./components/dropdown_menu";
 import { addResetListeners } from "./components/reset_button";
 
 let cy = null;
 let allNodes = null;
 let allEdges = null;
+let targetNode = null;
+let targetNeighborhood = null;
+
+const addDropdownListeners = (cy, allNodes, allEdges, state) => {
+  const el = document.getElementById("dropdown");
+  if (!el) {
+    return;
+  }
+
+  el.addEventListener("change", e => {
+    var target = el.options[el.selectedIndex].value;
+    targetNode = cy.getElementById(target);
+    targetNeighborhood = targetNode.closedNeighborhood();
+    fitNodes(cy, targetNeighborhood).then(() => {
+      highlightAndConcentricLayout({
+        cy,
+        allNodes,
+        allEdges,
+        targetNode,
+        targetNeighborhood
+      });
+    });
+  });
+};
 
 export var data = {};
 
@@ -66,14 +88,17 @@ export function draw() {
   addResetListeners(cy, allNodes, allEdges);
 
   cy.on("tap", "node", function(event) {
-    const node = event.target;
-    const nhood = node.closedNeighborhood();
+    targetNode = event.target;
+    targetNeighborhood = targetNode.closedNeighborhood();
 
-    resetHighlights(cy, allNodes, allEdges);
-    highlightElements(cy, node, nhood);
-    if (state.highlight_layout === "concentric") {
-      switchConcentricLayout(node, nhood);
-    }
+    highlightAndConcentricLayout({
+      cy,
+      allNodes,
+      allEdges,
+      targetNode,
+      targetNeighborhood,
+      state
+    });
   });
 }
 
@@ -81,8 +106,8 @@ export function update() {
   if (targetNode && state.highlight_layout === "concentric") {
     switchConcentricLayout(targetNode, targetNeighborhood);
   }
-
   if (targetNode && state.highlight_layout === "random") {
     resetOriginalPositions(cy, targetNeighborhood);
+    fitNodes(cy, targetNeighborhood);
   }
 }

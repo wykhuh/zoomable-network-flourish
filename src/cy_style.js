@@ -1,3 +1,5 @@
+import { LAYOUT_PADDING, EASING, ANIMATION_DURATION } from "./layout_options";
+
 const cyStyle = [
   {
     selector: "node",
@@ -21,7 +23,10 @@ const cyStyle = [
     style: {
       "text-opacity": 1,
       "background-color": "#000",
-      "z-index": 200
+      "z-index": 200,
+      "transition-property": "text-opacity background-color opacity",
+      "transition-duration": ANIMATION_DURATION * 2,
+      "transition-timing-function": EASING
     }
   },
   {
@@ -29,7 +34,10 @@ const cyStyle = [
     style: {
       width: 2,
       opacity: 0.8,
-      "z-index": 100
+      "z-index": 100,
+      "transition-property": "opacity width",
+      "transition-duration": ANIMATION_DURATION * 2,
+      "transition-timing-function": EASING
     }
   },
   {
