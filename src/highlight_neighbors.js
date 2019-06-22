@@ -1,5 +1,6 @@
 import { concentricOptions } from "./layout_options";
 import { LAYOUT_PADDING, EASING, ANIMATION_DURATION } from "./layout_options";
+import state from "./state";
 
 const resetHighlights = (cy, allNodes, allEdges) => {
   cy.batch(() => {
@@ -68,8 +69,7 @@ const highlightAndConcentricLayout = ({
   allNodes,
   allEdges,
   targetNode,
-  targetNeighborhood,
-  state
+  targetNeighborhood
 }) => {
   resetHighlights(cy, allNodes, allEdges);
   highlightElements(cy, targetNode, targetNeighborhood);

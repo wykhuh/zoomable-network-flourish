@@ -29,6 +29,10 @@ settings:
       - - Circular
         - concentric
 
+  - Colors
+  - property: color
+    import: "@flourish/custom-colors"
+
 data:
   - Links
   - dataset: links
@@ -54,4 +58,5 @@ data:
     name: Group
     description: A group to which the point belongs. If set, can be used to colour the points.
     type: column
+    column: Points::B
     optional: true

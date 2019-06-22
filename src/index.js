@@ -1,5 +1,9 @@
 import "cytoscape/dist/cytoscape.min.js";
 
+import allState from "./state";
+import allData from "./data";
+import { updateColors, setElementColor, setNodesColor, color } from "./colors";
+
 import cyStyle from "./cy_style";
 import { fcoseOptions, coseOptions } from "./layout_options";
 import { stopSpinner } from "./components/spinner";
@@ -19,7 +23,7 @@ let allEdges = null;
 let targetNode = null;
 let targetNeighborhood = null;
 
-const addDropdownListeners = (cy, allNodes, allEdges, state) => {
+const addDropdownListeners = (cy, allNodes, allEdges) => {
   const el = document.getElementById("dropdown");
   if (!el) {
     return;
@@ -41,13 +45,28 @@ const addDropdownListeners = (cy, allNodes, allEdges, state) => {
   });
 };
 
-export var data = {};
+export var data = allData;
 
-export var state = {
-  highlight_layout: "random"
-};
+export var state = allState;
 
 export function draw() {
+  updateColors();
+  console.log(state.color.palette);
+  const el = document.querySelector(".color-groups");
+  // let html = "";
+  // state.color.palette.forEach(c => (html += `<li>${c}</li>`));
+  // el.insertAdjacentHTML("beforeend", html);
+
+  var groups = [...new Set(data.points.map(p => p.group))];
+  let html = "";
+
+  groups.forEach(group => {
+    const groupName = group;
+    const groupColor = color.find(group);
+    html += `<li><span style="background:${groupColor}"></span>${groupName}</li>`;
+  });
+  el.insertAdjacentHTML("beforeend", html);
+
   const edgesData = formatEdges(data.links);
   const nodesData = formatNodes(data.points, data.links);
   const maxEdges = Math.max(...nodesData.map(n => n.data.weight));
@@ -68,7 +87,8 @@ export function draw() {
         selector: "node",
         style: {
           height: `mapData(weight, 1, ${maxEdges}, 8, 40)`,
-          width: `mapData(weight, 1, ${maxEdges}, 8, 40)`
+          width: `mapData(weight, 1, ${maxEdges}, 8, 40)`,
+          "background-color": setElementColor
         }
       }
     ]
@@ -84,7 +104,7 @@ export function draw() {
   allNodes = cy.nodes();
   allEdges = cy.edges();
 
-  addDropdownListeners(cy, allNodes, allEdges, state);
+  addDropdownListeners(cy, allNodes, allEdges);
   addResetListeners(cy, allNodes, allEdges);
 
   cy.on("tap", "node", function(event) {
@@ -96,13 +116,15 @@ export function draw() {
       allNodes,
       allEdges,
       targetNode,
-      targetNeighborhood,
-      state
+      targetNeighborhood
     });
   });
 }
 
 export function update() {
+  updateColors();
+  setNodesColor(cy, allNodes);
+
   if (targetNode && state.highlight_layout === "concentric") {
     switchConcentricLayout(targetNode, targetNeighborhood);
   }
