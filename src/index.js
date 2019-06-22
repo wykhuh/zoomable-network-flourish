@@ -77,4 +77,12 @@ export function draw() {
   });
 }
 
-export function update() {}
+export function update() {
+  if (targetNode && state.highlight_layout === "concentric") {
+    switchConcentricLayout(targetNode, targetNeighborhood);
+  }
+
+  if (targetNode && state.highlight_layout === "random") {
+    resetOriginalPositions(cy, targetNeighborhood);
+  }
+}
