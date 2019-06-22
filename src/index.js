@@ -9,6 +9,10 @@ import {
   highlightElements,
   switchConcentricLayout
 } from "./highlight_neighbors";
+import {
+  populateDropdown,
+  addDropdownListeners
+} from "./components/dropdown_menu";
 
 let cy = null;
 let allNodes = null;
@@ -25,6 +29,7 @@ export function draw() {
   const nodesData = formatNodes(data.points, data.links);
   const maxEdges = Math.max(...nodesData.map(n => n.data.weight));
 
+  populateDropdown(nodesData);
   stopSpinner();
 
   cy = cytoscape({
@@ -48,8 +53,11 @@ export function draw() {
 
   cy.minZoom(0.1);
   cy.maxZoom(4);
+
   allNodes = cy.nodes();
   allEdges = cy.edges();
+
+  addDropdownListeners(cy, allNodes, allEdges, state);
 
   cy.on("tap", "node", function(event) {
     const node = event.target;
