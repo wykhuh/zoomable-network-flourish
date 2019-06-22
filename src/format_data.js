@@ -14,11 +14,13 @@ const formatNodes = (nodeData, edgeData) => {
   });
 };
 
-const addOrginalPosition = (cy, nodesData) => {
-  nodesData.forEach(node => {
-    const position = cy.getElementById(node.data.id).position();
-    node.data.original_position = { ...position };
+const addOriginalPosition = (cy, nodesData) => {
+  cy.batch(() => {
+    nodesData.forEach(node => {
+      const position = cy.getElementById(node.data.id).position();
+      node.data.original_position = { ...position };
+    });
   });
 };
 
-export { formatEdges, formatNodes, addOrginalPosition };
+export { formatEdges, formatNodes, addOriginalPosition };

@@ -3,7 +3,7 @@ import "cytoscape/dist/cytoscape.min.js";
 import cyStyle from "./cy_style";
 import { fcoseOptions, coseOptions } from "./layout_options";
 import { stopSpinner } from "./components/spinner";
-import { formatEdges, formatNodes } from "./format_data";
+import { formatEdges, formatNodes, addOriginalPosition } from "./format_data";
 import {
   resetHighlights,
   highlightElements,
@@ -13,6 +13,7 @@ import {
   populateDropdown,
   addDropdownListeners
 } from "./components/dropdown_menu";
+import { addResetListeners } from "./components/reset_button";
 
 let cy = null;
 let allNodes = null;
@@ -51,6 +52,10 @@ export function draw() {
     ]
   });
 
+  cy.promiseOn("layoutstop").then(() => {
+    addOriginalPosition(cy, nodesData);
+  });
+
   cy.minZoom(0.1);
   cy.maxZoom(4);
 
@@ -58,6 +63,7 @@ export function draw() {
   allEdges = cy.edges();
 
   addDropdownListeners(cy, allNodes, allEdges, state);
+  addResetListeners(cy, allNodes, allEdges);
 
   cy.on("tap", "node", function(event) {
     const node = event.target;

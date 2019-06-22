@@ -33,4 +33,18 @@ const switchConcentricLayout = (node, nhood) => {
   layout.run();
 };
 
-export { resetHighlights, highlightElements, switchConcentricLayout };
+const resetOriginalPositions = (cy, nodes) => {
+  cy.batch(() => {
+    nodes.forEach(function(node) {
+      var p = node.data("original_position");
+      node.position({ x: p.x, y: p.y });
+    });
+  });
+};
+
+export {
+  resetHighlights,
+  highlightElements,
+  switchConcentricLayout,
+  resetOriginalPositions
+};

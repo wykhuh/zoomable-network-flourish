@@ -69,4 +69,11 @@ const concentricOptions = {
   concentric: () => 1
 };
 
-export { coseOptions, fcoseOptions, concentricOptions };
+export {
+  coseOptions,
+  fcoseOptions,
+  concentricOptions,
+  LAYOUT_PADDING,
+  EASING,
+  ANIMATION_DURATION
+};
