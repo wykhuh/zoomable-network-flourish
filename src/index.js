@@ -1,11 +1,11 @@
-import "cytoscape/dist/cytoscape.min.js";
+import cytoscape from "cytoscape";
+import cola from "cytoscape-cola";
 
 import allState from "./state";
 import allData from "./data";
 import { updateColors, setElementColor, setNodesColor, color } from "./colors";
-
 import cyStyle from "./cy_style";
-import { fcoseOptions, coseOptions } from "./layout_options";
+import { fcoseOptions, coseOptions, colaOptions } from "./layout_options";
 import { stopSpinner } from "./components/spinner";
 import { formatEdges, formatNodes, addOriginalPosition } from "./format_data";
 import {
@@ -16,6 +16,9 @@ import {
 import { populateDropdown } from "./components/dropdown_menu";
 import { addResetListeners } from "./components/reset_button";
 
+cytoscape.use(cola);
+
+let layout = colaOptions;
 let cy = null;
 let allNodes = null;
 let allEdges = null;
@@ -95,7 +98,7 @@ export function draw() {
 
   cy = cytoscape({
     container: document.getElementById("cy"),
-    layout: coseOptions,
+    layout: layout,
     elements: {
       nodes: nodesData,
       edges: edgesData
