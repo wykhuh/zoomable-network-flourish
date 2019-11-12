@@ -44,6 +44,22 @@ const addDropdownListeners = (cy, allNodes, allEdges) => {
   });
 };
 
+const addColorGroupListeners = () => {
+  const colorGroupItemEls = document.querySelectorAll("li.color-group-item");
+
+  if (colorGroupItemEls) {
+    colorGroupItemEls.forEach(el => {
+      el.addEventListener("click", e => {
+        let group = e.target.dataset["group"];
+        if (e.target.nodeName == "LI") {
+          e.target.classList.toggle("inactive");
+        } else {
+          e.target.parentElement.classList.toggle("inactive");
+        }
+      });
+    });
+  }
+};
 
 const renderColorGroups = data => {
   const el = document.querySelector(".color-groups");
@@ -68,6 +84,7 @@ export var state = allState;
 export function draw() {
   updateColors();
   renderColorGroups(data);
+  // addColorGroupListeners();
 
   const edgesData = formatEdges(data.links);
   const nodesData = formatNodes(data.points, data.links);
