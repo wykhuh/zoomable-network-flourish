@@ -68,7 +68,7 @@ export function draw() {
 
   const edgesData = formatEdges(data.links);
   const nodesData = formatNodes(data.points, data.links);
-  const maxEdges = Math.max(...nodesData.map(n => n.data.weight));
+  const maxEdges = Math.max(...nodesData.map(n => n.data.edgeCount));
 
   populateDropdown(nodesData);
   stopSpinner();
@@ -85,8 +85,9 @@ export function draw() {
       {
         selector: "node",
         style: {
-          height: `mapData(weight, 1, ${maxEdges}, 8, 40)`,
-          width: `mapData(weight, 1, ${maxEdges}, 8, 40)`,
+          "font-size": "24px",
+          height: `mapData(edgeCount, 1, ${maxEdges}, 8, 24)`,
+          width: `mapData(edgeCount, 1, ${maxEdges}, 8, 24)`,
           "background-color": setElementColor
         }
       }

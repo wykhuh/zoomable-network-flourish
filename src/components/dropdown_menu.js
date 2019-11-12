@@ -15,7 +15,7 @@ const populateDropdown = nodesData => {
 
   nodes.forEach(node => {
     let html = `<option value="${node.data.id}">
-    ${node.data.id} (${node.data.weight})
+    ${node.data.id} (${node.data.edgeCount})
     </option>`;
     el.insertAdjacentHTML("beforeend", html);
   });

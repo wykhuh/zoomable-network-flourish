@@ -7,8 +7,9 @@ const formatNodes = (nodeData, edgeData) => {
     return {
       data: {
         ...item,
-        weight: edgeData.filter(i => i.source == item.id || i.target == item.id)
-          .length
+        edgeCount: edgeData.filter(
+          i => i.source == item.id || i.target == item.id
+        ).length
       }
     };
   });
