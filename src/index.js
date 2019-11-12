@@ -44,27 +44,30 @@ const addDropdownListeners = (cy, allNodes, allEdges) => {
   });
 };
 
+
+const renderColorGroups = data => {
+  const el = document.querySelector(".color-groups");
+
+  var groups = [...new Set(data.points.map(p => p.group))];
+  let content = "";
+
+  groups.forEach(group => {
+    const groupName = group;
+    const groupColor = color.find(group);
+    content += `<li class="color-group-item" data-group="${groupName}">
+      <span data-group="${groupName}" style="background:${groupColor}"></span>
+      ${groupName}</li>`;
+  });
+  el.insertAdjacentHTML("beforeend", content);
+};
+
 export var data = allData;
 
 export var state = allState;
 
 export function draw() {
   updateColors();
-  console.log(state.color.palette);
-  const el = document.querySelector(".color-groups");
-  // let html = "";
-  // state.color.palette.forEach(c => (html += `<li>${c}</li>`));
-  // el.insertAdjacentHTML("beforeend", html);
-
-  var groups = [...new Set(data.points.map(p => p.group))];
-  let html = "";
-
-  groups.forEach(group => {
-    const groupName = group;
-    const groupColor = color.find(group);
-    html += `<li><span style="background:${groupColor}"></span>${groupName}</li>`;
-  });
-  el.insertAdjacentHTML("beforeend", html);
+  renderColorGroups(data);
 
   const edgesData = formatEdges(data.links);
   const nodesData = formatNodes(data.points, data.links);
