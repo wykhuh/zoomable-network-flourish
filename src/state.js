@@ -1,5 +1,4 @@
 const state = {
-  highlight_layout: "random",
   color: {}
 };
 

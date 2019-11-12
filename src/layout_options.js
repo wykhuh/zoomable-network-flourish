@@ -56,23 +56,9 @@ const coseOptions = {
   nodeDimensionsIncludeLabels: false
 };
 
-const concentricOptions = {
-  name: "concentric",
-  fit: true,
-  animate: true,
-  ANIMATION_DURATION: ANIMATION_DURATION,
-  animationEasing: EASING,
-  nodeDimensionsIncludeLabels: true,
-  avoidOverlap: true,
-  padding: LAYOUT_PADDING,
-  levelWidth: () => 1,
-  concentric: () => 1
-};
-
 export {
   coseOptions,
   fcoseOptions,
-  concentricOptions,
   LAYOUT_PADDING,
   EASING,
   ANIMATION_DURATION

@@ -1,6 +1,6 @@
-id: "concentric_network"
-name: Concentric Network
-description: A network template that uses concentric layout on click
+id: "zoomable_network"
+name: Zoomable Network
+description: A network template that zooms to selected node
 author: wykhuh
 
 sdk_version: 3
@@ -17,18 +17,6 @@ build:
     directory: less
 
 settings:
-  - Highlight layout
-  - property: highlight_layout
-    name: Chart layout for connected items
-    type: string
-    style: buttons
-    width: full
-    choices:
-      - - Random
-        - random
-      - - Circular
-        - concentric
-
   - Colors
   - property: color
     import: "@flourish/custom-colors"

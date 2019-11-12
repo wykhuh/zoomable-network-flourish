@@ -9,9 +9,8 @@ import { fcoseOptions, coseOptions } from "./layout_options";
 import { stopSpinner } from "./components/spinner";
 import { formatEdges, formatNodes, addOriginalPosition } from "./format_data";
 import {
-  switchConcentricLayout,
   resetOriginalPositions,
-  highlightAndConcentricLayout,
+  highlightNodeLayout,
   fitNodes
 } from "./highlight_neighbors";
 import { populateDropdown } from "./components/dropdown_menu";
@@ -34,7 +33,7 @@ const addDropdownListeners = (cy, allNodes, allEdges) => {
     targetNode = cy.getElementById(target);
     targetNeighborhood = targetNode.closedNeighborhood();
     fitNodes(cy, targetNeighborhood).then(() => {
-      highlightAndConcentricLayout({
+      highlightNodeLayout({
         cy,
         allNodes,
         allEdges,
@@ -111,7 +110,7 @@ export function draw() {
     targetNode = event.target;
     targetNeighborhood = targetNode.closedNeighborhood();
 
-    highlightAndConcentricLayout({
+    highlightNodeLayout({
       cy,
       allNodes,
       allEdges,
@@ -124,12 +123,6 @@ export function draw() {
 export function update() {
   updateColors();
   setNodesColor(cy, allNodes);
-
-  if (targetNode && state.highlight_layout === "concentric") {
-    switchConcentricLayout(targetNode, targetNeighborhood);
-  }
-  if (targetNode && state.highlight_layout === "random") {
-    resetOriginalPositions(cy, targetNeighborhood);
-    fitNodes(cy, targetNeighborhood);
-  }
+  resetOriginalPositions(cy, targetNeighborhood);
+  fitNodes(cy, targetNeighborhood);
 }

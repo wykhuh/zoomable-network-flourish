@@ -1,4 +1,3 @@
-import { concentricOptions } from "./layout_options";
 import { LAYOUT_PADDING, EASING, ANIMATION_DURATION } from "./layout_options";
 import state from "./state";
 
@@ -18,21 +17,6 @@ const highlightElements = (cy, node, nhood) => {
     node.neighborhood("node").addClass("highlight-node");
     others.addClass("faded");
   });
-};
-
-const switchConcentricLayout = (node, nhood) => {
-  var layout = nhood.filter(":visible").makeLayout({
-    ...concentricOptions,
-    concentric: function(element) {
-      if (element.same(node)) {
-        return 2;
-      } else {
-        return 1;
-      }
-    }
-  });
-
-  layout.run();
 };
 
 const resetOriginalPositions = (cy, nodes) => {
@@ -64,7 +48,7 @@ const fitNodes = (cy, nodes) => {
     .promise();
 };
 
-const highlightAndConcentricLayout = ({
+const highlightNodeLayout = ({
   cy,
   allNodes,
   allEdges,
@@ -73,16 +57,12 @@ const highlightAndConcentricLayout = ({
 }) => {
   resetHighlights(cy, allNodes, allEdges);
   highlightElements(cy, targetNode, targetNeighborhood);
-  if (state.highlight_layout === "concentric") {
-    switchConcentricLayout(targetNode, targetNeighborhood);
-  }
 };
 
 export {
   resetHighlights,
   highlightElements,
-  switchConcentricLayout,
   resetOriginalPositions,
-  highlightAndConcentricLayout,
+  highlightNodeLayout,
   fitNodes
 };
