@@ -66,9 +66,17 @@ const addColorGroupListeners = () => {
 };
 
 const renderColorGroups = data => {
-  const el = document.querySelector(".color-groups");
+  const listEl = document.querySelector(".color-groups");
+  if (!listEl) return;
 
-  var groups = [...new Set(data.points.map(p => p.group))];
+  const itemEls = document.querySelectorAll(".color-group-item");
+  if (itemEls) {
+    itemEls.forEach(i => i.remove());
+  }
+
+  var groups = [...new Set(data.points.map(p => p.group))].sort(
+    (a, b) => a > b
+  );
   let content = "";
 
   groups.forEach(group => {
@@ -78,7 +86,7 @@ const renderColorGroups = data => {
       <span data-group="${groupName}" style="background:${groupColor}"></span>
       ${groupName}</li>`;
   });
-  el.insertAdjacentHTML("beforeend", content);
+  listEl.insertAdjacentHTML("beforeend", content);
 };
 
 export var data = allData;
@@ -88,7 +96,6 @@ export var state = allState;
 export function draw() {
   updateColors();
   renderColorGroups(data);
-  // addColorGroupListeners();
 
   const edgesData = formatEdges(data.links);
   const nodesData = formatNodes(data.points, data.links);
@@ -147,7 +154,11 @@ export function draw() {
 
 export function update() {
   updateColors();
+  renderColorGroups(data);
   setNodesColor(cy, allNodes);
-  resetOriginalPositions(cy, targetNeighborhood);
-  fitNodes(cy, targetNeighborhood);
+
+  if (targetNeighborhood) {
+    resetOriginalPositions(cy, targetNeighborhood);
+    fitNodes(cy, targetNeighborhood);
+  }
 }
