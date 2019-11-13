@@ -108,7 +108,7 @@ export function draw() {
       {
         selector: "node",
         style: {
-          "font-size": "24px",
+          "font-size": "14px",
           height: `mapData(edgeCount, 1, ${maxEdges}, 8, 24)`,
           width: `mapData(edgeCount, 1, ${maxEdges}, 8, 24)`,
           "background-color": setElementColor
