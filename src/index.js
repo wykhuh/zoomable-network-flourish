@@ -1,11 +1,17 @@
 import cytoscape from "cytoscape";
 import cola from "cytoscape-cola";
+import coseBilkent from "cytoscape-cose-bilkent";
 
 import allState from "./state";
 import allData from "./data";
 import { updateColors, setElementColor, setNodesColor, color } from "./colors";
 import cyStyle from "./cy_style";
-import { fcoseOptions, coseOptions, colaOptions } from "./layout_options";
+import {
+  fcoseOptions,
+  coseOptions,
+  colaOptions,
+  coseBilkentOptions
+} from "./layout_options";
 import { stopSpinner } from "./components/spinner";
 import { formatEdges, formatNodes, addOriginalPosition } from "./format_data";
 import {
@@ -16,9 +22,9 @@ import {
 import { populateDropdown } from "./components/dropdown_menu";
 import { addResetListeners } from "./components/reset_button";
 
-cytoscape.use(cola);
+cytoscape.use(coseBilkent);
 
-let layout = colaOptions;
+let layout = coseBilkentOptions;
 let cy = null;
 let allNodes = null;
 let allEdges = null;
