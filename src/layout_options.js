@@ -149,15 +149,15 @@ var coseBilkentOptions = {
   // Whether to fit the network view after when done
   fit: true,
   // Padding on fit
-  padding: 10,
+  padding: LAYOUT_PADDING,
   // Whether to enable incremental mode
   randomize: true,
   // Node repulsion (non overlapping) multiplier
-  nodeRepulsion: 4500,
+  nodeRepulsion: 7500,
   // Ideal (intra-graph) edge length
-  idealEdgeLength: 50,
+  idealEdgeLength: 140,
   // Divisor to compute edge forces
-  edgeElasticity: 0.45,
+  edgeElasticity: 0.75,
   // Nesting factor (multiplier) to compute ideal edge length for inter-graph edges
   nestingFactor: 0.1,
   // Gravity force (constant)
