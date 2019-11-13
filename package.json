@@ -1,9 +1,9 @@
 {
-  "name": "untitled_flourish_template",
-  "version": "0.0.3-prerelease.4",
+  "name": "zommable_network",
+  "version": "0.1.0",
   "description": "A template for use on flourish.studio",
   "main": "template.js",
-  "author": "Unknown author",
+  "author": "wykhuh",
   "license": "ISC",
   "keywords": [
     "flourish"
