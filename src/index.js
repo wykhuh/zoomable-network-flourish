@@ -6,12 +6,7 @@ import allState from "./state";
 import allData from "./data";
 import { updateColors, setElementColor, setNodesColor, color } from "./colors";
 import cyStyle from "./cy_style";
-import {
-  fcoseOptions,
-  coseOptions,
-  colaOptions,
-  coseBilkentOptions
-} from "./layout_options";
+import { coseOptions, colaOptions, coseBilkentOptions } from "./layout_options";
 import { stopSpinner } from "./components/spinner";
 import { formatEdges, formatNodes, addOriginalPosition } from "./format_data";
 import {
